@@ -1,0 +1,105 @@
+// Copyright © 2016 Jared Palmer. All Rights Reserved.
+//
+//
+// BASIC USAGE:
+// <div class="accordion xs-relative">
+//   <input id="check-1" type="checkbox" class="accordion-input">
+//   <label class="accordion-label fill-gray-lighter" for="check-1">NKBA</label>
+//   <div class="accordion-content">
+//    Accordion content!
+//   </div>
+// </div>
+//
+//
+
+.accordion {
+  width: 100%;
+  z-index: 1;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+
+  @include media-query('md') {
+    border-bottom: none;
+    margin-bottom: $space-2;
+  }
+}
+
+.accordion-content {
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(-100px);
+  z-index: -1;
+
+  // Uncomment / add markup if you want to make content responsive
+  // @include media-query('md') {
+  //   display: block;
+  //   position: relative;
+  //   visibility: visible;
+  //   transform: none;
+  //   z-index: 1;
+  // }
+}
+
+
+// This method is similar to how Apple.com does it.
+// Works on IE9.
+.accordion-input {
+  display: none;
+
+  &:checked + .accordion-label {
+  	border-bottom-right-radius: 0;
+  	border-bottom-left-radius: 0;
+  	color: white;
+  	margin-bottom: 0;
+  }
+  // Required stub to make the accordion hide content
+  &:checked .accordion-content {
+  }
+
+  &:checked ~ .accordion-content {
+    position: static;
+    visibility: visible;
+    transform: none;
+    transition: transform 300ms ease;
+  }
+
+  // Spin the caret around
+  &:checked + .accordion-label:after {
+    transform: rotate(180deg) !important;
+  }
+
+}
+
+.accordion-label {
+	cursor: pointer;
+	display: block;
+  position: relative;
+  z-index: 2;
+
+  &:after {
+    content: '';
+    position: absolute;
+    background-image: url('data:image/svg+xml,' + $down-caret);
+    fill: $fill-gray-lighter;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: .6875rem;
+    height: .6875rem;
+    margin-top: -.3rem;
+    top: 50%;
+    transform: rotate(0deg);
+    transition: transform .3s ease-in-out;
+    right: .6875rem;
+    width: .6875rem;
+
+    // Uncomment / add markup if you want to make content responsive
+    // @include media-query('md') {
+    //   display: none;
+    // }
+  }
+}

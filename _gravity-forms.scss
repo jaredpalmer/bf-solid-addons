@@ -1,0 +1,150 @@
+// Copyright © 2016 Jared Palmer. All Rights Reserved.
+//
+//
+// This cleans up Wordpress Gravity Forms default CSS styles and overrides them with
+// bf-solid's forms and error messages.
+//
+// For more info about Gravity Forms' CSS, checkout
+// https://www.gravityhelp.com/documentation/article/css-targeting-samples
+//
+
+// STANDARD FIELDS
+.gform_fields .gfield {
+  .gfield_label {
+    @extend .form-label;
+  }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="url"],
+  input[type="date"],
+  input[type="tel"],
+  input[type="text"] {
+    @extend .text-input;
+    width: 100% !important;
+  }
+
+  select {
+    @extend .select;
+    width: 100% !important;
+  }
+
+  textarea {
+    @extend .textarea;
+    width: 100% !important;
+  }
+
+  // Radio buttons
+  .gfield_radio li {
+    padding-left: 6px;
+
+    label {
+      margin: 0;
+    }
+
+    input[type="radio"] {
+      @extend .radio;
+      width: auto;
+    }
+  }
+
+  // Checkboxes
+  .gfield_checkbox li {
+    padding-left: 6px;
+
+    input[type="checkbox"] {
+      @extend .checkbox;
+      width: auto;
+    }
+  }
+
+  .ginput_complex label,
+  .gfield_description {
+    color: $text-gray-lightest  !important;
+    display: block              !important;
+    margin-top: $space-1        !important;
+    font-size: $text-5          !important
+  }
+
+}
+
+// COMPLEX FIELDS
+
+.gform_wrapper .ginput_complex  {
+  .ginput_full input[type="text"] {
+      width: 100% !important;
+  }
+  .ginput_left,
+  .ginput_right {
+    width: 49%;
+  }
+
+  .ginput_right {
+    margin-left: 1.96%;
+  }
+}
+
+// Submit Button
+.gform_wrapper .gform_footer input[type="submit"] {
+  @extend .button;
+}
+
+// Reset Button
+.gform_wrapper .gform_footer input[type="reset"] {
+  @extend .button;
+  @extend .button--secondary;
+}
+
+// Error Message
+.gform_wrapper div.validation_error {
+  position: relative;
+  margin-top: .125rem;
+  padding: .75rem;
+  font-size: $text-4;
+  font-weight: $bold;
+  border: 0;
+  background-color: $fill-red-lighter;
+  color: $text-red;
+  &:before {
+    content: "";
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    position: relative;
+    bottom: -2px;
+    margin-right: $space-1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: svg-background($exclamation-circle);
+    background-size: 1rem;
+  }
+}
+
+// VALIDATION
+
+// Error container
+// Note, not using @extend here
+.gform_wrapper .gform_body .gform_fields .gfield_error {
+   background-color: #fff;
+   margin-bottom: .375em !important;
+   padding: 0;
+   border-top: 0;
+   border-bottom: 0;
+
+   .gfield_label,
+   .gfield_description,
+   .ginput_complex label {
+      color: $text-red !important;
+   }
+
+   input[type="text"],
+   select,
+   textarea {
+      border-color: $fill-red !important;
+   }
+}
+
+// Required field Asterisk
+.gfield_required {
+  @extend .form-label--required;
+}
